@@ -1,1 +1,51 @@
-<p>transacao-form works!</p>
+<h2>Nova Transação</h2>
+
+<form>
+
+  <label for="descricao">Descrição</label>
+  <input
+    id="descricao"
+    type="text"
+    name="descricao"
+    [(ngModel)]="descricao"
+  >
+
+  <br><br>
+
+  <label for="valor">Valor</label>
+  <input
+    id="valor"
+    type="number"
+    name="valor"
+    [(ngModel)]="valor"
+  >
+
+  <br><br>
+
+  <label for="tipo">Tipo</label>
+  <select
+    id="tipo"
+    name="tipo"
+    [(ngModel)]="tipo"
+  >
+    <option value="receita">Receita</option>
+    <option value="despesa">Despesa</option>
+  </select>
+
+  <br><br>
+
+  <label for="data">Data</label>
+  <input
+    id="data"
+    type="date"
+    name="data"
+    [(ngModel)]="data"
+  >
+
+  <br><br>
+
+  <button type="submit">
+    Cadastrar
+  </button>
+
+</form>
