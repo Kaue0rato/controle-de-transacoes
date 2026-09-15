@@ -1,33 +1,45 @@
 <section>
+
   <h2>Transações</h2>
 
-  @if (transacoes.length === 0) {
+  @if (transacoes$ | async; as transacoes) {
 
-    <p>Nenhuma transação cadastrada.</p>
+    @if (transacoes.length === 0) {
 
-  } @else {
+      <p>Nenhuma transação cadastrada.</p>
 
-    <ul>
-      @for (transacao of transacoes; track transacao.id) {
+    } @else {
 
-        <li>
-          <strong>{{ transacao.descricao }}</strong>
+      <ul>
 
-          <span>
-            R$ {{ transacao.valor.toFixed(2) }}
-          </span>
+        @for (transacao of transacoes; track transacao.id) {
 
-          <span>
-            {{ transacao.tipo }}
-          </span>
+          <li>
 
-          <span>
-            {{ transacao.data }}
-          </span>
-        </li>
+            <strong>
+              {{ transacao.descricao }}
+            </strong>
 
-      }
-    </ul>
+            <span>
+              R$ {{ transacao.valor.toFixed(2) }}
+            </span>
+
+            <span>
+              {{ transacao.tipo }}
+            </span>
+
+            <span>
+              {{ transacao.data }}
+            </span>
+
+          </li>
+
+        }
+
+      </ul>
+
+    }
 
   }
+
 </section>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Transacao } from '../models/transacao';
 
 @Injectable({
@@ -6,19 +7,24 @@ import { Transacao } from '../models/transacao';
 })
 export class TransacaoService {
 
-  private transacoes: Transacao[] = [];
+  private transacoesSubject = new BehaviorSubject<Transacao[]>([]);
 
-  listar(): Transacao[] {
-    return this.transacoes;
-  }
+  transacoes$ = this.transacoesSubject.asObservable();
 
   adicionar(transacao: Transacao): void {
-    this.transacoes.push(transacao);
+    const transacoesAtuais = this.transacoesSubject.value;
+
+    this.transacoesSubject.next([
+      ...transacoesAtuais,
+      transacao
+    ]);
   }
 
   remover(id: number): void {
-    this.transacoes = this.transacoes.filter(
+    const transacoesAtualizadas = this.transacoesSubject.value.filter(
       transacao => transacao.id !== id
     );
+
+    this.transacoesSubject.next(transacoesAtualizadas);
   }
 }

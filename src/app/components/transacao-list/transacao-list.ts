@@ -1,26 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Transacao } from '../../models/transacao';
+import { AsyncPipe } from '@angular/common';
+import { Component } from '@angular/core';
 import { TransacaoService } from '../../services/transacao.service';
 
 @Component({
   selector: 'app-transacao-list',
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './transacao-list.html',
   styleUrl: './transacao-list.css'
 })
-export class TransacaoList implements OnInit {
+export class TransacaoList {
 
-  transacoes: Transacao[] = [];
+  transacoes$;
 
   constructor(
     private transacaoService: TransacaoService
-  ) {}
-
-  ngOnInit(): void {
-    this.carregarTransacoes();
+  ) {
+    this.transacoes$ = this.transacaoService.transacoes$;
   }
 
-  carregarTransacoes(): void {
-    this.transacoes = this.transacaoService.listar();
-  }
 }
