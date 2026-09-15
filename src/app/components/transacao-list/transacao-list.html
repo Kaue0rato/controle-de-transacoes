@@ -1,0 +1,33 @@
+<section>
+  <h2>Transações</h2>
+
+  @if (transacoes.length === 0) {
+
+    <p>Nenhuma transação cadastrada.</p>
+
+  } @else {
+
+    <ul>
+      @for (transacao of transacoes; track transacao.id) {
+
+        <li>
+          <strong>{{ transacao.descricao }}</strong>
+
+          <span>
+            R$ {{ transacao.valor.toFixed(2) }}
+          </span>
+
+          <span>
+            {{ transacao.tipo }}
+          </span>
+
+          <span>
+            {{ transacao.data }}
+          </span>
+        </li>
+
+      }
+    </ul>
+
+  }
+</section>
