@@ -1,0 +1,33 @@
+<section>
+
+  <h2>Resumo Financeiro</h2>
+
+  <div>
+
+    <div>
+      <h3>Receitas</h3>
+
+      <p>
+        R$ {{ (receitas$ | async)?.toFixed(2) }}
+      </p>
+    </div>
+
+    <div>
+      <h3>Despesas</h3>
+
+      <p>
+        R$ {{ (despesas$ | async)?.toFixed(2) }}
+      </p>
+    </div>
+
+    <div>
+      <h3>Saldo</h3>
+
+      <p>
+        R$ {{ (saldo$ | async)?.toFixed(2) }}
+      </p>
+    </div>
+
+  </div>
+
+</section>
