@@ -1,5 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Transacao } from '../../models/transacao';
 import { TransacaoService } from '../../services/transacao.service';
 
 @Component({
@@ -10,12 +12,16 @@ import { TransacaoService } from '../../services/transacao.service';
 })
 export class TransacaoList {
 
-  transacoes$;
+  transacoes$: Observable<Transacao[]>;
 
   constructor(
     private transacaoService: TransacaoService
   ) {
     this.transacoes$ = this.transacaoService.transacoes$;
+  }
+
+  remover(id: number): void {
+    this.transacaoService.remover(id);
   }
 
 }

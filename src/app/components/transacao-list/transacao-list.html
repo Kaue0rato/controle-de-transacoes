@@ -17,22 +17,29 @@
           <li>
 
             <strong>
-              {{ transacao.descricao }}
+             {{ transacao.descricao }}
             </strong>
 
             <span>
-              R$ {{ transacao.valor.toFixed(2) }}
+             R$ {{ transacao.valor.toFixed(2) }}
             </span>
 
             <span>
-              {{ transacao.tipo }}
+                {{ transacao.tipo }}
             </span>
 
             <span>
-              {{ transacao.data }}
+                {{ transacao.data }}
             </span>
 
-          </li>
+            <button
+                type="button"
+                (click)="remover(transacao.id)" 
+                >
+                 Remover
+            </button>
+
+            </li>
 
         }
 

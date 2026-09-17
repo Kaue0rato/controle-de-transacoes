@@ -1,32 +1,49 @@
 <h2>Nova Transação</h2>
 
-<form (ngSubmit)="cadastrar()">
+<form #form="ngForm" (ngSubmit)="cadastrar(form)">
 
   <label for="descricao">Descrição</label>
+
   <input
     id="descricao"
     type="text"
     name="descricao"
     [(ngModel)]="descricao"
+    required
+    #descricaoCampo="ngModel"
   >
+
+  @if (descricaoCampo.invalid && descricaoCampo.touched) {
+    <p>Digite uma descrição.</p>
+  }
 
   <br><br>
 
   <label for="valor">Valor</label>
+
   <input
     id="valor"
     type="number"
     name="valor"
     [(ngModel)]="valor"
+    required
+    min="0.01"
+    #valorCampo="ngModel"
   >
+
+  @if (valorCampo.invalid && valorCampo.touched) {
+    <p>Digite um valor maior que zero.</p>
+  }
 
   <br><br>
 
   <label for="tipo">Tipo</label>
+
   <select
     id="tipo"
     name="tipo"
     [(ngModel)]="tipo"
+    required
   >
     <option value="receita">Receita</option>
     <option value="despesa">Despesa</option>
@@ -35,16 +52,26 @@
   <br><br>
 
   <label for="data">Data</label>
+
   <input
     id="data"
     type="date"
     name="data"
     [(ngModel)]="data"
+    required
+    #dataCampo="ngModel"
   >
+
+  @if (dataCampo.invalid && dataCampo.touched) {
+    <p>Selecione uma data.</p>
+  }
 
   <br><br>
 
-  <button type="submit">
+  <button
+    type="submit"
+    [disabled]="form.invalid"
+  >
     Cadastrar
   </button>
 
