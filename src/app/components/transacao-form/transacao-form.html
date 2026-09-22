@@ -1,6 +1,7 @@
-<h2>Nova Transação</h2>
-
-<form #form="ngForm" (ngSubmit)="cadastrar(form)">
+<h2>
+  {{ editando ? 'Editar Transação' : 'Nova Transação' }}
+</h2>
+<form #form="ngForm" (ngSubmit)="salvar(form)">
 
   <label for="descricao">Descrição</label>
 
@@ -69,10 +70,21 @@
   <br><br>
 
   <button
-    type="submit"
-    [disabled]="form.invalid"
+  type="submit"
+  [disabled]="form.invalid"
+>
+  {{ editando ? 'Atualizar' : 'Cadastrar' }}
+</button>
+
+@if (editando) {
+
+  <button
+    type="button"
+    (click)="cancelarEdicao(form)"
   >
-    Cadastrar
+    Cancelar
   </button>
+
+}
 
 </form>

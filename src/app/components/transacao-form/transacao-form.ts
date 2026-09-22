@@ -9,6 +9,7 @@ import { TransacaoService } from '../../services/transacao.service';
   templateUrl: './transacao-form.html',
   styleUrl: './transacao-form.css'
 })
+
 export class TransacaoForm {
 
   descricao = '';
@@ -16,27 +17,62 @@ export class TransacaoForm {
   tipo: 'receita' | 'despesa' = 'receita';
   data = '';
 
+  editando = false;
+  idEditando: number | null = null;
+
   constructor(
     private transacaoService: TransacaoService
   ) {}
 
-  cadastrar(form: NgForm): void {
+  editar(transacao: Transacao): void {
+
+    this.idEditando = transacao.id;
+
+    this.descricao = transacao.descricao;
+    this.valor = transacao.valor;
+    this.tipo = transacao.tipo;
+    this.data = transacao.data;
+
+    this.editando = true;
+  }
+
+  salvar(form: NgForm): void {
 
   if (form.invalid) {
     return;
   }
 
-  const novaTransacao: Transacao = {
-    id: Date.now(),
-    descricao: this.descricao,
-    valor: this.valor,
-    tipo: this.tipo,
-    data: this.data
-  };
+  if (this.editando && this.idEditando !== null) {
 
-  this.transacaoService.adicionar(novaTransacao);
+    const transacaoAtualizada: Transacao = {
+      id: this.idEditando,
+      descricao: this.descricao,
+      valor: this.valor,
+      tipo: this.tipo,
+      data: this.data
+    };
 
-  console.log('Transação cadastrada:', novaTransacao);
+    this.transacaoService.atualizar(transacaoAtualizada);
+
+  } else {
+
+    const novaTransacao: Transacao = {
+      id: Date.now(),
+      descricao: this.descricao,
+      valor: this.valor,
+      tipo: this.tipo,
+      data: this.data
+    };
+
+    this.transacaoService.adicionar(novaTransacao);
+  }
+
+  this.cancelarEdicao(form);
+  }
+  cancelarEdicao(form: NgForm): void {
+
+  this.editando = false;
+  this.idEditando = null;
 
   form.resetForm({
     descricao: '',
@@ -44,5 +80,5 @@ export class TransacaoForm {
     tipo: 'receita',
     data: ''
   });
-}
-}
+}}
+
