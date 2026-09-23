@@ -4,8 +4,12 @@
 
 <hr>
 
-<app-transacao-form></app-transacao-form>
+<app-transacao-form
+  [transacaoParaEditar]="transacaoSelecionada"
+></app-transacao-form>
 
 <hr>
 
-<app-transacao-list></app-transacao-list>
+<app-transacao-list
+  (editarTransacao)="editarTransacao($event)"
+></app-transacao-list>

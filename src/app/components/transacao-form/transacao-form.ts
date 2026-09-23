@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
+
 import { FormsModule, NgForm } from '@angular/forms';
+
 import { Transacao } from '../../models/transacao';
 import { TransacaoService } from '../../services/transacao.service';
 
@@ -9,8 +16,9 @@ import { TransacaoService } from '../../services/transacao.service';
   templateUrl: './transacao-form.html',
   styleUrl: './transacao-form.css'
 })
-
 export class TransacaoForm {
+
+  @Input() transacaoParaEditar: Transacao | null = null;
 
   descricao = '';
   valor = 0;
@@ -24,6 +32,40 @@ export class TransacaoForm {
     private transacaoService: TransacaoService
   ) {}
 
+  salvar(form: NgForm): void {
+
+    if (form.invalid) {
+      return;
+    }
+
+    if (this.editando && this.idEditando !== null) {
+
+      const transacaoAtualizada: Transacao = {
+        id: this.idEditando,
+        descricao: this.descricao,
+        valor: this.valor,
+        tipo: this.tipo,
+        data: this.data
+      };
+
+      this.transacaoService.atualizar(transacaoAtualizada);
+
+    } else {
+
+      const novaTransacao: Transacao = {
+        id: Date.now(),
+        descricao: this.descricao,
+        valor: this.valor,
+        tipo: this.tipo,
+        data: this.data
+      };
+
+      this.transacaoService.adicionar(novaTransacao);
+    }
+
+    this.cancelarEdicao(form);
+  }
+
   editar(transacao: Transacao): void {
 
     this.idEditando = transacao.id;
@@ -36,49 +78,36 @@ export class TransacaoForm {
     this.editando = true;
   }
 
-  salvar(form: NgForm): void {
+  cancelarEdicao(form: NgForm): void {
 
-  if (form.invalid) {
+    this.editando = false;
+    this.idEditando = null;
+
+    this.descricao = '';
+    this.valor = 0;
+    this.tipo = 'receita';
+    this.data = '';
+
+    form.resetForm({
+      descricao: '',
+      valor: 0,
+      tipo: 'receita',
+      data: ''
+    });
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    const mudanca = changes['transacaoParaEditar'];
+
+  if (!mudanca) {
     return;
   }
 
-  if (this.editando && this.idEditando !== null) {
+  const transacao = mudanca.currentValue as Transacao | null;
 
-    const transacaoAtualizada: Transacao = {
-      id: this.idEditando,
-      descricao: this.descricao,
-      valor: this.valor,
-      tipo: this.tipo,
-      data: this.data
-    };
-
-    this.transacaoService.atualizar(transacaoAtualizada);
-
-  } else {
-
-    const novaTransacao: Transacao = {
-      id: Date.now(),
-      descricao: this.descricao,
-      valor: this.valor,
-      tipo: this.tipo,
-      data: this.data
-    };
-
-    this.transacaoService.adicionar(novaTransacao);
+  if (!transacao) {
+    return;
   }
 
-  this.cancelarEdicao(form);
-  }
-  cancelarEdicao(form: NgForm): void {
-
-  this.editando = false;
-  this.idEditando = null;
-
-  form.resetForm({
-    descricao: '',
-    valor: 0,
-    tipo: 'receita',
-    data: ''
-  });
-}}
-
+  this.editar(transacao);
+}
+}
