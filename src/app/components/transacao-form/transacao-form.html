@@ -1,90 +1,175 @@
-<h2>
-  {{ editando ? 'Editar Transação' : 'Nova Transação' }}
-</h2>
-<form #form="ngForm" (ngSubmit)="salvar(form)">
+<div>
 
-  <label for="descricao">Descrição</label>
+  <div class="mb-6">
 
-  <input
-    id="descricao"
-    type="text"
-    name="descricao"
-    [(ngModel)]="descricao"
-    required
-    #descricaoCampo="ngModel"
+    <h2 class="text-xl font-bold tracking-tight text-slate-900">
+      {{ editando ? 'Editar transação' : 'Nova transação' }}
+    </h2>
+
+    <p class="mt-1 text-sm text-slate-500">
+      {{ editando
+        ? 'Atualize as informações da transação.'
+        : 'Adicione uma nova movimentação financeira.'
+      }}
+    </p>
+
+  </div>
+
+
+  <form
+    #form="ngForm"
+    (ngSubmit)="salvar(form)"
+    class="space-y-5"
   >
 
-  @if (descricaoCampo.invalid && descricaoCampo.touched) {
-    <p>Digite uma descrição.</p>
-  }
+    <!-- Descrição -->
+    <div>
 
-  <br><br>
+      <label
+        for="descricao"
+        class="mb-2 block text-sm font-medium text-slate-700"
+      >
+        Descrição
+      </label>
 
-  <label for="valor">Valor</label>
+      <input
+        id="descricao"
+        type="text"
+        name="descricao"
+        [(ngModel)]="descricao"
+        required
+        #descricaoCampo="ngModel"
+        placeholder="Ex: Mercado"
+        class="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 outline-none transition-all duration-200 placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10"
+      >
 
-  <input
-    id="valor"
-    type="number"
-    name="valor"
-    [(ngModel)]="valor"
-    required
-    min="0.01"
-    #valorCampo="ngModel"
-  >
+      @if (descricaoCampo.invalid && descricaoCampo.touched) {
+        <p class="mt-2 text-xs font-medium text-rose-500">
+          Digite uma descrição.
+        </p>
+      }
 
-  @if (valorCampo.invalid && valorCampo.touched) {
-    <p>Digite um valor maior que zero.</p>
-  }
+    </div>
 
-  <br><br>
 
-  <label for="tipo">Tipo</label>
+    <!-- Valor -->
+    <div>
 
-  <select
-    id="tipo"
-    name="tipo"
-    [(ngModel)]="tipo"
-    required
-  >
-    <option value="receita">Receita</option>
-    <option value="despesa">Despesa</option>
-  </select>
+      <label
+        for="valor"
+        class="mb-2 block text-sm font-medium text-slate-700"
+      >
+        Valor
+      </label>
 
-  <br><br>
+      <div class="relative">
 
-  <label for="data">Data</label>
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-medium text-slate-400">
+          R$
+        </span>
 
-  <input
-    id="data"
-    type="date"
-    name="data"
-    [(ngModel)]="data"
-    required
-    #dataCampo="ngModel"
-  >
+        <input
+          id="valor"
+          type="number"
+          name="valor"
+          [(ngModel)]="valor"
+          required
+          min="0.01"
+          step="0.01"
+          #valorCampo="ngModel"
+          placeholder="0,00"
+          class="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-3 pl-11 pr-4 text-sm text-slate-900 outline-none transition-all duration-200 placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10"
+        >
 
-  @if (dataCampo.invalid && dataCampo.touched) {
-    <p>Selecione uma data.</p>
-  }
+      </div>
 
-  <br><br>
+      @if (valorCampo.invalid && valorCampo.touched) {
+        <p class="mt-2 text-xs font-medium text-rose-500">
+          Digite um valor maior que zero.
+        </p>
+      }
 
-  <button
-  type="submit"
-  [disabled]="form.invalid"
->
-  {{ editando ? 'Atualizar' : 'Cadastrar' }}
-</button>
+    </div>
 
-@if (editando) {
 
-  <button
-    type="button"
-    (click)="cancelarEdicao(form)"
-  >
-    Cancelar
-  </button>
+    <!-- Tipo -->
+    <div>
 
-}
+      <label
+        for="tipo"
+        class="mb-2 block text-sm font-medium text-slate-700"
+      >
+        Tipo
+      </label>
 
-</form>
+      <select
+        id="tipo"
+        name="tipo"
+        [(ngModel)]="tipo"
+        required
+        class="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 outline-none transition-all duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10"
+      >
+        <option value="receita">Receita</option>
+        <option value="despesa">Despesa</option>
+      </select>
+
+    </div>
+
+
+    <!-- Data -->
+    <div>
+
+      <label
+        for="data"
+        class="mb-2 block text-sm font-medium text-slate-700"
+      >
+        Data
+      </label>
+
+      <input
+        id="data"
+        type="date"
+        name="data"
+        [(ngModel)]="data"
+        required
+        #dataCampo="ngModel"
+        class="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 outline-none transition-all duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10"
+      >
+
+      @if (dataCampo.invalid && dataCampo.touched) {
+        <p class="mt-2 text-xs font-medium text-rose-500">
+          Selecione uma data.
+        </p>
+      }
+
+    </div>
+
+
+    <!-- Ações -->
+    <div class="flex flex-col gap-3 pt-2 sm:flex-row">
+
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        class="flex-1 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+      >
+        {{ editando ? 'Atualizar transação' : 'Cadastrar transação' }}
+      </button>
+
+      @if (editando) {
+
+        <button
+          type="button"
+          (click)="cancelarEdicao(form)"
+          class="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-600 transition-all duration-200 hover:bg-slate-50 hover:text-slate-900"
+        >
+          Cancelar
+        </button>
+
+      }
+
+    </div>
+
+  </form>
+
+</div>

@@ -1,15 +1,66 @@
-<h1>Controle de Transações</h1>
+<div class="min-h-screen bg-slate-50 text-slate-900">
 
-<app-resumo-financeiro></app-resumo-financeiro>
+  <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
 
-<hr>
+    <!-- Header -->
+    <header class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 
-<app-transacao-form
-  [transacaoParaEditar]="transacaoSelecionada"
-></app-transacao-form>
+      <div>
+        <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/70 px-3 py-1 text-xs font-medium text-indigo-700 shadow-sm backdrop-blur-md">
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+          Controle financeiro
+        </div>
 
-<hr>
+        <h1 class="text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+          Controle de
+          <span class="bg-gradient-to-r from-slate-900 via-indigo-700 to-violet-700 bg-clip-text text-transparent">
+            Transações
+          </span>
+        </h1>
 
-<app-transacao-list
-  (editarTransacao)="editarTransacao($event)"
-></app-transacao-list>
+        <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base">
+          Acompanhe suas receitas, despesas e saldo em um único lugar.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2 text-sm text-slate-500">
+        <span class="h-2 w-2 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
+        Sistema online
+      </div>
+
+    </header>
+
+
+    <!-- Resumo -->
+    <section class="mb-8">
+      <app-resumo-financeiro></app-resumo-financeiro>
+    </section>
+
+
+    <!-- Conteúdo principal -->
+    <section class="grid gap-6 lg:grid-cols-[380px_1fr]">
+
+      <!-- Formulário -->
+      <div class="h-fit rounded-3xl border border-slate-200/70 bg-white/80 p-6 shadow-2xl shadow-indigo-500/5 backdrop-blur-md transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10">
+
+        <app-transacao-form
+          [transacaoParaEditar]="transacaoSelecionada"
+        ></app-transacao-form>
+
+      </div>
+
+
+      <!-- Lista -->
+      <div class="rounded-3xl border border-slate-200/70 bg-white/80 p-6 shadow-2xl shadow-indigo-500/5 backdrop-blur-md transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10">
+
+        <app-transacao-list
+          (editarTransacao)="editarTransacao($event)"
+        ></app-transacao-list>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
