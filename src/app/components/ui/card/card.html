@@ -1,0 +1,10 @@
+<div
+  class="rounded-3xl border border-slate-200/70 bg-white/80 shadow-xl shadow-indigo-500/5 backdrop-blur-md transition-all duration-300"
+  [class.p-5]="padding === 'normal'"
+  [class.p-6]="padding === 'large'"
+  [class.hover:-translate-y-1]="hover"
+  [class.hover:shadow-2xl]="hover"
+  [class.hover:shadow-indigo-500/10]="hover"
+>
+  <ng-content></ng-content>
+</div>

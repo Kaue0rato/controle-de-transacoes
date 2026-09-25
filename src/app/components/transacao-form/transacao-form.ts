@@ -1,3 +1,4 @@
+
 import {
   Component,
   Input,
@@ -10,13 +11,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Transacao } from '../../models/transacao';
 import { TransacaoService } from '../../services/transacao.service';
 
+
 @Component({
   selector: 'app-transacao-form',
   imports: [FormsModule],
   templateUrl: './transacao-form.html',
   styleUrl: './transacao-form.css'
 })
-export class TransacaoForm {
+export class TransacaoForm implements OnChanges {
 
   @Input() transacaoParaEditar: Transacao | null = null;
 
@@ -32,8 +34,23 @@ export class TransacaoForm {
     private transacaoService: TransacaoService
   ) {}
 
-  salvar(form: NgForm): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    const mudanca = changes['transacaoParaEditar'];
 
+    if (!mudanca) {
+      return;
+    }
+
+    const transacao = mudanca.currentValue as Transacao | null;
+
+    if (!transacao) {
+      return;
+    }
+
+    this.editar(transacao);
+  }
+
+  salvar(form: NgForm): void {
     if (form.invalid) {
       return;
     }
@@ -67,7 +84,6 @@ export class TransacaoForm {
   }
 
   editar(transacao: Transacao): void {
-
     this.idEditando = transacao.id;
 
     this.descricao = transacao.descricao;
@@ -79,7 +95,6 @@ export class TransacaoForm {
   }
 
   cancelarEdicao(form: NgForm): void {
-
     this.editando = false;
     this.idEditando = null;
 
@@ -95,19 +110,4 @@ export class TransacaoForm {
       data: ''
     });
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    const mudanca = changes['transacaoParaEditar'];
-
-  if (!mudanca) {
-    return;
-  }
-
-  const transacao = mudanca.currentValue as Transacao | null;
-
-  if (!transacao) {
-    return;
-  }
-
-  this.editar(transacao);
-}
 }

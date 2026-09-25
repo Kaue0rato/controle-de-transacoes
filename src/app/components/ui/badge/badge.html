@@ -1,0 +1,16 @@
+<span
+  class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-inset"
+  [class.bg-emerald-50]="variant === 'success'"
+  [class.text-emerald-700]="variant === 'success'"
+  [class.ring-emerald-600/20]="variant === 'success'"
+
+  [class.bg-rose-50]="variant === 'danger'"
+  [class.text-rose-700]="variant === 'danger'"
+  [class.ring-rose-600/20]="variant === 'danger'"
+
+  [class.bg-slate-100]="variant === 'neutral'"
+  [class.text-slate-600]="variant === 'neutral'"
+  [class.ring-slate-500/10]="variant === 'neutral'"
+>
+  <ng-content></ng-content>
+</span>

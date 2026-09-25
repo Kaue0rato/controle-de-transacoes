@@ -151,6 +151,11 @@
                   >
                     Remover
                   </button>
+                  <app-badge
+                    [variant]="transacao.tipo === 'receita' ? 'success' : 'danger'"
+                  >
+                    {{ transacao.tipo === 'receita' ? 'Receita' : 'Despesa' }}
+                 </app-badge>
 
                 </div>
 

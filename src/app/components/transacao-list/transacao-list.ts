@@ -1,13 +1,18 @@
+
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { Transacao } from '../../models/transacao';
 import { TransacaoService } from '../../services/transacao.service';
-import { EventEmitter, Output } from '@angular/core';
+import { Badge } from '../ui/badge/badge';
 
 @Component({
   selector: 'app-transacao-list',
-  imports: [AsyncPipe],
+  imports: [
+    AsyncPipe,
+    Badge
+  ],
   templateUrl: './transacao-list.html',
   styleUrl: './transacao-list.css'
 })
@@ -30,4 +35,4 @@ export class TransacaoList {
   remover(id: number): void {
     this.transacaoService.remover(id);
   }
- }
+}
