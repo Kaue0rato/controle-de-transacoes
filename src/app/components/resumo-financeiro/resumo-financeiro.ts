@@ -1,12 +1,19 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  CurrencyPipe,
+  registerLocaleData
+} from '@angular/common';
+
+import localePt from '@angular/common/locales/pt';
 import { Component } from '@angular/core';
+registerLocaleData(localePt, 'pt-BR');
 import { map, Observable } from 'rxjs';
 import { Transacao } from '../../models/transacao';
 import { TransacaoService } from '../../services/transacao.service';
 
 @Component({
   selector: 'app-resumo-financeiro',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, CurrencyPipe],
   templateUrl: './resumo-financeiro.html',
   styleUrl: './resumo-financeiro.css'
 })

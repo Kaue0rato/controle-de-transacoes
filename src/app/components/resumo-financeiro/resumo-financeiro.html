@@ -11,7 +11,7 @@
         </p>
 
         <p class="mt-2 text-2xl font-bold tracking-tight text-slate-900">
-          R$ {{ (receitas$ | async)?.toFixed(2) }}
+          {{ (receitas$ | async) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
         </p>
       </div>
 
@@ -50,7 +50,7 @@
         </p>
 
         <p class="mt-2 text-2xl font-bold tracking-tight text-slate-900">
-          R$ {{ (despesas$ | async)?.toFixed(2) }}
+          {{ (despesas$ | async) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
         </p>
       </div>
 
@@ -89,7 +89,7 @@
         </p>
 
         <p class="mt-2 text-2xl font-bold tracking-tight text-indigo-700">
-          R$ {{ (saldo$ | async)?.toFixed(2) }}
+          {{ (saldo$ | async) | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
         </p>
       </div>
 
